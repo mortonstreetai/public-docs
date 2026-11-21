@@ -1,0 +1,16 @@
+---
+title: "Claude Code"
+description: "Add the Morton Street MCP server to Claude Code."
+---
+
+```bash
+claude mcp add --transport http mortonstreet https://api.mortonstreet.ai/mcp
+```
+
+Then start Claude Code and run `/mcp`. Choose **mortonstreet** and **Authenticate**; a browser window opens for the Morton Street sign-in. Tokens are stored by Claude Code and refreshed automatically.
+
+To share the server with your team, add it at project scope so it is written to `.mcp.json`:
+
+```bash
+claude mcp add --transport http --scope project mortonstreet https://api.mortonstreet.ai/mcp
+```

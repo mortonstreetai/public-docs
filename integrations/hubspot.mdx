@@ -1,0 +1,38 @@
+---
+title: "HubSpot"
+description: "Contacts, companies, deals and notes in HubSpot CRM."
+---
+
+## Connect
+
+**OAuth (recommended):** click **Connect with HubSpot** and pick the portal. Morton Street requests these scopes:
+
+`oauth`, `crm.objects.contacts.read`, `crm.objects.contacts.write`, `crm.objects.companies.read`, `crm.objects.companies.write`, `crm.objects.deals.read`, `crm.objects.deals.write`
+
+**Private app token:** until Morton Street's public HubSpot app is approved, you can create a private app in HubSpot (**Settings → Integrations → Private apps**) with the same scopes and paste its `pat-…` token.
+
+## What syncs
+
+- Contacts (email, name, job title, phone, company, website, LinkedIn URL)
+- Deals (name, stage, amount, close date) from the default pipeline
+
+## Writes
+
+- Contacts are upserted in batches of 100, matched on email.
+- Deals are created in the default pipeline and can be linked to a contact.
+- Stage changes are written back to HubSpot.
+- Notes are attached to the contact.
+
+## Stage mapping
+
+| Morton Street | HubSpot default pipeline |
+| --- | --- |
+| lead | appointmentscheduled |
+| qualified | qualifiedtobuy |
+| meeting | presentationscheduled |
+| proposal | decisionmakerboughtin |
+| negotiation | contractsent |
+| won | closedwon |
+| lost | closedlost |
+
+Custom pipelines are not mapped yet; their deals arrive as `qualified`.

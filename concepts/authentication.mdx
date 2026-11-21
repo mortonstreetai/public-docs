@@ -1,0 +1,28 @@
+---
+title: "Authentication"
+description: "How your AI client signs in to Morton Street, and how Morton Street signs in to your tools."
+---
+
+There are two separate sign-ins. They never share credentials.
+
+## 1. Your AI client to Morton Street
+
+The MCP endpoint follows the MCP authorization spec, which is built on OAuth 2.1. Morton Street uses Clerk as the authorization server.
+
+1. The client calls `https://api.mortonstreet.ai/mcp` without a token and gets a `401` with a `WWW-Authenticate` header pointing at the protected resource metadata.
+2. It reads `https://api.mortonstreet.ai/.well-known/oauth-protected-resource/mcp`, which names the authorization server.
+3. It registers itself, either through dynamic client registration or a client ID metadata document. You never copy a client ID or secret.
+4. You sign in with your Morton Street account and approve access. PKCE is required.
+5. The client receives an access token bound to the MCP endpoint (audience-restricted) and sends it with every request.
+
+Every tool call is then scoped to one workspace. See [Workspaces](/concepts/workspaces) for how that workspace is chosen.
+
+## 2. Morton Street to your tools
+
+| Tool | How it connects |
+| --- | --- |
+| HubSpot, Salesforce, Shopify | OAuth sign-in from the portal. Tokens are refreshed automatically. HubSpot private-app tokens and Shopify custom-app tokens are also accepted while public app approvals are pending. |
+| Instantly, Smartlead, HeyReach | API key pasted in the portal |
+| Odoo | Instance URL, database, login and API key |
+
+Every credential is checked with the vendor before it is saved, then stored encrypted in Supabase Vault. It is never shown again in the portal and never sent to your AI client. See [Security](/security).

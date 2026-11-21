@@ -1,0 +1,27 @@
+---
+title: "MCP overview"
+description: "The Morton Street MCP server: endpoint, transport and tool design."
+---
+
+| | |
+| --- | --- |
+| Endpoint | `https://api.mortonstreet.ai/mcp` |
+| Transport | Streamable HTTP |
+| Auth | OAuth 2.1 (see [Authentication](/concepts/authentication)) |
+| Metadata | `/.well-known/oauth-protected-resource/mcp` |
+
+## Tool design
+
+Morton Street exposes a small set of general tools instead of every endpoint of every vendor. Models choose more reliably from about 20 well-described tools than from 150 raw ones. Where a tool can target more than one vendor, it takes a `provider` argument.
+
+| Group | Tools |
+| --- | --- |
+| [Workspace](/mcp/workspace) | `whoami`, `switch_workspace`, `list_connections`, `sync_now` |
+| [Read](/mcp/read) | `search_contacts`, `get_contact`, `search_companies`, `account_timeline`, `get_pipeline`, `list_campaigns`, `campaign_performance`, `replied_without_deal` |
+| [Write](/mcp/write) | `upsert_contacts`, `create_deal`, `update_deal_stage`, `log_activity` |
+| [Workflows](/mcp/workflows) | `push_leads_to_sequence`, `sync_to_crm`, `list_to_sequence_and_crm` |
+| [Approvals](/mcp/approvals) | `list_pending_actions`, `confirm_action`, `cancel_action` |
+
+Reads come from the synced shared data, so they are fast and do not use your vendors' API quotas. Writes go to the vendor first and then update the shared data, and they pass through [guardrails](/concepts/guardrails).
+
+<Info>Your AI client always reads the live tool list and input schemas from the server. This reference explains what each tool does; the schemas your client sees are the source of truth for exact parameter names.</Info>

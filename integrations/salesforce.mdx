@@ -1,0 +1,33 @@
+---
+title: "Salesforce"
+description: "Contacts, accounts and opportunities via the Salesforce REST API."
+---
+
+## Connect
+
+Click **Connect with Salesforce** and sign in. Morton Street requests `api`, `refresh_token` and `offline_access`. Your org must allow API access (Enterprise edition and above, or Professional with API enabled).
+
+<Note>Salesforce requires a Connected App. Listing on AppExchange also needs a security review, so a per-client Connected App may be used during onboarding.</Note>
+
+## What syncs
+
+- Contacts with their account name and website
+- Opportunities with stage, amount, close date and account
+
+## Writes
+
+- Contacts are matched on email, then updated or created.
+- Opportunities are created with a close date 30 days out, and stage changes are written back.
+- Notes are logged as completed Tasks on the contact.
+
+## Stage mapping
+
+| Morton Street | Salesforce |
+| --- | --- |
+| lead | Prospecting |
+| qualified | Qualification |
+| meeting | Needs Analysis |
+| proposal | Proposal/Price Quote |
+| negotiation | Negotiation/Review |
+| won | Closed Won |
+| lost | Closed Lost |

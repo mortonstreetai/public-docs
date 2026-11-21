@@ -1,0 +1,27 @@
+---
+title: "Claude"
+description: "Add Morton Street as a custom connector in Claude."
+---
+
+Morton Street is a remote MCP server with OAuth sign-in, so Claude can connect to it directly.
+
+<Steps>
+  <Step title="Add the connector">
+    In Claude, open **Settings → Connectors**, choose **Add custom connector**, and enter:
+
+    - **Name:** Morton Street
+    - **URL:** `https://api.mortonstreet.ai/mcp`
+
+    On Team and Enterprise plans an owner may need to add it for the organization first.
+  </Step>
+  <Step title="Sign in">
+    Click **Connect**. A Morton Street sign-in window opens. Sign in with your portal account and approve access. Claude registers itself automatically; there is no client ID to copy.
+  </Step>
+  <Step title="Use it in a chat">
+    Enable the connector from the tools menu in a conversation and ask something like "What does our pipeline look like by stage?"
+  </Step>
+</Steps>
+
+<Note>
+If you belong to more than one workspace, ask Claude to call `whoami` to see which workspace it is acting in, and `switch_workspace` to change it. See [Workspace tools](/mcp/workspace).
+</Note>

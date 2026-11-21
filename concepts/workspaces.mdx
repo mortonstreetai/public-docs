@@ -1,0 +1,30 @@
+---
+title: "Workspaces"
+description: "Tenancy, members, and the sponsor portfolio view."
+---
+
+A workspace is one client company. Each workspace is an organization in Morton Street's sign-in system, and every record (contacts, deals, connections, audit entries) belongs to exactly one workspace.
+
+## Members
+
+Invite people under **Settings → Members**. Admins can change permissions and connect or disconnect tools.
+
+## Which workspace the MCP acts in
+
+An AI client signs in as you, not as a workspace. If you belong to one workspace, every call uses it. If you belong to several:
+
+- `whoami` shows the active workspace and the others you can use.
+- `switch_workspace` changes the default for your MCP sessions. The choice is saved, so your next session starts in the same workspace.
+
+## Sponsor and portfolio view
+
+A workspace can be marked as a **sponsor** (for example, a PE firm or an agency) and own other workspaces as its portfolio. Members of the sponsor workspace see a **Portfolio** page that rolls up, per portfolio company:
+
+- contacts and companies
+- open deals and pipeline value
+- closed-won value
+- active campaigns
+- replies in the last 30 days
+- connected tools
+
+Sponsors can read their portfolio companies' data. Writes stay limited to the workspace you are signed in to, so a sponsor cannot change a portfolio company's CRM or campaigns from the sponsor workspace.

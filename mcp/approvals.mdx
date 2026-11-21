@@ -1,0 +1,30 @@
+---
+title: "Approvals"
+description: "Confirm or cancel writes that are waiting for a human."
+---
+
+When a write needs confirmation, the tool returns:
+
+```json
+{
+  "status": "pending_confirmation",
+  "action_id": "6c1f…",
+  "summary": "Add 42 leads to Instantly campaign \"Q4 Ops leaders · Midwest\"",
+  "preview": { "campaign": { "name": "Q4 Ops leaders · Midwest" }, "leads": ["…first 10…"], "more": 32, "skipped": 3 },
+  "expires_at": "2026-11-21T18:30:00Z"
+}
+```
+
+Pending actions expire after 30 minutes. Anyone in the workspace can also approve or reject them in the portal under **Approvals**.
+
+## list_pending_actions
+
+Lists actions in the workspace, newest first. `status` filters by `pending` (default), `executed`, `cancelled`, `expired`, `failed` or `all`.
+
+## confirm_action
+
+Runs a pending action by `action_id`. The data previewed is exactly what runs. An action can only be confirmed once; a second confirm returns an error instead of running it twice. If it fails, it is marked `failed` with the error.
+
+## cancel_action
+
+Discards a pending action by `action_id`.

@@ -1,0 +1,28 @@
+---
+title: "Odoo"
+description: "Partners, CRM opportunities and chatter on any Odoo 14+ instance."
+---
+
+Works with Odoo Community and Enterprise, Odoo.sh and odoo.com, version 14 or later.
+
+## Connect
+
+| Field | Example |
+| --- | --- |
+| Instance URL | `https://acme.odoo.com` |
+| Database | `acme` |
+| Login email | `ops@acme.com` |
+| API key | Create one in Odoo under **Preferences → Account Security → New API Key** |
+
+Use a dedicated integration user where you can. Morton Street can only see and change what that user can.
+
+## What syncs
+
+- Contacts: individual partners (`res.partner`, not companies) that have an email
+- Deals: CRM opportunities (`crm.lead` of type opportunity) with stage, expected revenue and deadline. Stages are mapped by name: anything containing "won" becomes `won`, "proposal" or "quote" becomes `proposal`, and so on.
+
+## Writes
+
+- Partners are matched on email, then updated or created.
+- Opportunities can be created and linked to a partner.
+- Notes are posted to the partner's chatter.

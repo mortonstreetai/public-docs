@@ -1,0 +1,38 @@
+---
+title: "Introduction"
+description: "One sales operating system across your CRM, sequencers and store, run by Morton Street and usable from Claude, ChatGPT and Cursor."
+---
+
+Morton Street OS is the platform behind Morton Street's managed outbound service. Each client connects the tools they already use, and Morton Street keeps them in one shared data model. Your team and your AI assistant can then work across all of them at once.
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Create a workspace, connect your tools and plug in your AI client in about ten minutes.
+  </Card>
+  <Card title="Connect Claude" icon="plug" href="/connect/claude">
+    Add Morton Street as a custom connector in Claude.
+  </Card>
+  <Card title="Integrations" icon="layer-group" href="/integrations/overview">
+    HubSpot, Salesforce, Shopify, Odoo, Instantly, Smartlead and HeyReach.
+  </Card>
+  <Card title="MCP tools" icon="wrench" href="/mcp/overview">
+    About 20 general tools plus named cross-tool workflows.
+  </Card>
+</CardGroup>
+
+## What it does
+
+- **One data model.** Contacts, companies, deals, campaigns and activity from every connected tool are synced into a single workspace. Questions like "who replied in Instantly but has no deal in HubSpot" are answered from that shared data instead of seven live API calls.
+- **Cross-tool workflows.** One request can take a list, save it, create the contacts in your CRM and enroll them in a sequence. See [Workflows](/mcp/workflows).
+- **An MCP server for your AI.** `https://api.mortonstreet.ai/mcp` works with Claude custom connectors, ChatGPT apps and connectors, Claude Code and Cursor. You build nothing; you sign in.
+- **Guardrails by default.** Permission scopes per workspace, preview-then-confirm for anything that sends or deletes, a full audit log and per-vendor rate limits. See [Guardrails](/concepts/guardrails).
+- **Portfolio view.** A sponsor workspace (a PE firm or an agency) can see pipeline and campaign results across the portfolio companies it owns. See [Workspaces](/concepts/workspaces).
+
+## How it fits together
+
+| Surface | Address | What it is |
+| --- | --- | --- |
+| Portal | `app.mortonstreet.ai` | Sign in, connect your tools, review approvals, settings |
+| API and MCP | `api.mortonstreet.ai` | REST, vendor webhooks and the `/mcp` endpoint |
+| Docs | `docs.mortonstreet.ai` | This site |
+| Status | `status.mortonstreet.ai` | Live uptime for the portal, API and MCP |

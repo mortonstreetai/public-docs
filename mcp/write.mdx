@@ -1,0 +1,32 @@
+---
+title: "Write tools"
+description: "Single-record changes. Scope: crm.write."
+---
+
+Each write returns `status: "done"` with the result, or `status: "pending_confirmation"` with an `action_id` when the workspace requires confirmation or the call touches more than 25 records. See [Approvals](/mcp/approvals).
+
+## upsert_contacts
+
+Saves contacts to the Morton Street workspace, matching on email (or LinkedIn URL when there is no email). Companies are created or matched from `company_domain`, `company_name` or the email domain. Existing tags are kept and new ones added. This does not write to any vendor; use [sync_to_crm](/mcp/workflows#sync_to_crm) for that.
+
+Each contact accepts `email`, `first_name`, `last_name`, `title`, `phone`, `linkedin_url`, `company_name`, `company_domain` and `tags`.
+
+## create_deal
+
+Creates a deal in Morton Street and, with `push_to`, in a CRM as well.
+
+| Parameter | Description |
+| --- | --- |
+| `name` | Deal name |
+| `stage` | Optional, default `qualified` |
+| `amount` | Optional |
+| `contact_id`, `company_id` | Optional links. With `push_to`, the deal is associated with the contact's CRM record when it has one. |
+| `push_to` | Optional `hubspot`, `salesforce` or `odoo` |
+
+## update_deal_stage
+
+Moves a deal to a new [stage](/concepts/data-model#value-sets). If the deal came from a CRM, the CRM is updated first, then the stage change is recorded as a `deal_stage` activity.
+
+## log_activity
+
+Records a `note`, `call` or `meeting` on a contact. With `push_to_crm`, it is also posted to the CRM (a HubSpot note, a Salesforce Task or Odoo chatter). The contact must already exist in that CRM.

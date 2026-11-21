@@ -1,0 +1,25 @@
+---
+title: "Security"
+description: "How client data and credentials are protected."
+---
+
+## Tenant isolation
+
+Every record carries its workspace ID. The API scopes every query to the caller's workspace, and the database enforces row-level security keyed on the signed-in organization as a second layer. Sponsor workspaces can read, but not change, their portfolio companies' data.
+
+## Credentials
+
+- Vendor credentials (OAuth tokens and API keys) are encrypted at rest in Supabase Vault.
+- They can only be read by the server's service role through dedicated functions; signed-in users and AI clients cannot read them.
+- They are never returned by any API or MCP tool, and are redacted from the audit log.
+- Disconnecting a tool deletes its credential.
+- OAuth connections use signed, 15-minute `state` values, and Shopify callbacks are HMAC-verified.
+
+## AI client access
+
+- OAuth 2.1 with PKCE, audience-bound access tokens and no shared secrets.
+- Per-workspace permission scopes, preview-then-confirm and a full audit log. See [Guardrails](/concepts/guardrails).
+
+## Availability
+
+Live status for the portal, API and MCP endpoint is at [status.mortonstreet.ai](https://status.mortonstreet.ai).

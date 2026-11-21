@@ -1,0 +1,27 @@
+---
+title: "Integrations"
+description: "The tools Morton Street connects to, and what each one needs."
+---
+
+Connect tools under **Integrations** in the portal. Each workspace can have one connection per tool.
+
+| Tool | Category | Connects with | Reads | Writes |
+| --- | --- | --- | --- | --- |
+| [HubSpot](/integrations/hubspot) | CRM | OAuth or private-app token | Contacts, deals | Contacts, deals, deal stages, notes |
+| [Salesforce](/integrations/salesforce) | CRM | OAuth | Contacts, opportunities | Contacts, opportunities, stages, tasks |
+| [Shopify](/integrations/shopify) | Commerce | OAuth or custom-app token | Customers, orders | Customers |
+| [Odoo](/integrations/odoo) | ERP | URL, database, login, API key | Partners, CRM opportunities | Partners, opportunities, chatter notes |
+| [Instantly](/integrations/instantly) | Sequencer | API key | Campaigns and analytics | Add leads to campaigns |
+| [Smartlead](/integrations/smartlead) | Sequencer | API key | Campaigns and analytics | Add leads to campaigns |
+| [HeyReach](/integrations/heyreach) | LinkedIn | API key | Campaigns and progress | Add leads to campaigns |
+
+## Connection status
+
+| Status | Meaning |
+| --- | --- |
+| Connected | Working; last sync time shown |
+| Syncing | A sync is running |
+| Error | The last sync or call failed; the error is shown on the card |
+| Expired | An OAuth token could not be refreshed; reconnect |
+
+Disconnecting deletes the stored credential. Records already synced stay in the workspace.

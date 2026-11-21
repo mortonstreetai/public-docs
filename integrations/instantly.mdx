@@ -1,0 +1,18 @@
+---
+title: "Instantly"
+description: "Cold email campaigns, leads and analytics."
+---
+
+## Connect
+
+Paste an Instantly **API v2** key, created under **Settings → Integrations → API Keys**. V1 keys do not work.
+
+## What syncs
+
+Every campaign with its status and analytics: leads, emails sent, unique opens, unique replies, opportunities (counted as positive replies) and bounces.
+
+## Writes
+
+`push_leads_to_sequence` adds contacts to a campaign in batches of up to 1,000. Leads already in your Instantly workspace are skipped. Each lead carries first name, last name, company, website and phone, with the job title as a custom variable.
+
+Contacts that are `unsubscribed` or `bounced` in Morton Street, or that have no email, are never sent.

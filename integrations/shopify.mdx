@@ -1,0 +1,21 @@
+---
+title: "Shopify"
+description: "Customers and orders from your Shopify store."
+---
+
+## Connect
+
+Enter your store domain (for example `your-store.myshopify.com`) and click **Connect with Shopify**. Morton Street requests:
+
+`read_customers`, `write_customers`, `read_orders`, `read_products`, `read_draft_orders`, `write_draft_orders`
+
+**Custom app token:** until the public app is approved, create a custom app in the Shopify admin with the same scopes and paste its Admin API token (`shpat_…`) together with the store domain.
+
+## What syncs
+
+- Customers (name, email, phone, company)
+- Orders, as **won** deals named after the order number and customer, so store revenue shows in the pipeline and portfolio views
+
+## Writes
+
+- Customers are created or updated, matched on email.

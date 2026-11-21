@@ -1,0 +1,54 @@
+---
+title: "Workflow tools"
+description: "Cross-tool actions that would otherwise take several tools and several API calls."
+---
+
+Workflow tools act on live campaigns and CRMs, so by default they always return a preview first. See [Approvals](/mcp/approvals).
+
+## push_leads_to_sequence
+
+Adds contacts to a campaign in Instantly, Smartlead or HeyReach. Scope: `campaigns.send`.
+
+| Parameter | Description |
+| --- | --- |
+| `provider` | `instantly`, `smartlead` or `heyreach` |
+| `campaign` | Campaign ID, vendor campaign ID or name. Run `list_campaigns` first. |
+| `contact_ids` | Contacts to add. Or select with `status`, `tag` or `query` (with optional `limit`, default 200). |
+
+Contacts that are `unsubscribed` or `bounced`, or that lack an email (a LinkedIn URL for HeyReach), are skipped and counted in the preview. After it runs, contacts are recorded as enrolled, new contacts move to `in_sequence`, and an activity is logged for each.
+
+## sync_to_crm
+
+Creates or updates contacts in a CRM and can open a deal for each. Scope: `crm.bulk_sync`.
+
+| Parameter | Description |
+| --- | --- |
+| `provider` | `hubspot`, `salesforce`, `odoo` or `shopify` |
+| `contact_ids` | Or select with `status`, `tag` or `query` |
+| `create_deals` | Optional. Opens one deal per contact, named after the company. |
+| `deal_stage` | Optional, default `qualified` |
+
+The preview shows how many contacts are new to the CRM and how many will be updated. CRM IDs are saved on each contact, so later syncs and notes line up.
+
+## list_to_sequence_and_crm
+
+Takes a list in one call: saves it to Morton Street, optionally creates the contacts in a CRM, then enrolls them in a campaign. Scope: `campaigns.send`.
+
+| Parameter | Description |
+| --- | --- |
+| `contacts` | The leads (same fields as `upsert_contacts`) |
+| `sequencer` | `instantly`, `smartlead` or `heyreach` |
+| `campaign` | Campaign ID or name |
+| `crm` | Optional `hubspot`, `salesforce`, `odoo` or `shopify` |
+| `tag` | Optional. Defaults to `list-YYYY-MM-DD` so you can find the batch later. |
+
+Both tools are checked for a working connection before the preview is created.
+
+## Example
+
+> Take these 40 plant managers, put them in HubSpot, and start them on the "Q4 Ops leaders" Instantly campaign.
+
+1. The assistant calls `list_to_sequence_and_crm` with the list, `crm: "hubspot"`, `sequencer: "instantly"`.
+2. Morton Street returns a preview: 40 leads, the three steps, and a sample.
+3. You say "go ahead", and the assistant calls `confirm_action`.
+4. The result reports contacts saved, HubSpot records upserted and leads added to Instantly.

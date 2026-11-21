@@ -1,0 +1,30 @@
+---
+title: "Workspace tools"
+description: "Identity, workspace selection, connections and syncing."
+---
+
+## whoami
+
+Returns the signed-in user, the active workspace and the other workspaces the user can switch to. Call it first if you are unsure which client's data you are looking at.
+
+## switch_workspace
+
+Sets the workspace the MCP acts in for this user. The choice is saved and used by later sessions too.
+
+| Parameter | Description |
+| --- | --- |
+| `workspace` | A workspace ID (`org_...`), name or slug from `whoami` |
+
+You can only switch to workspaces you are a member of.
+
+## list_connections
+
+Lists the tools connected to the workspace: provider, status, account label, last sync time and last error. Credentials are never returned.
+
+## sync_now
+
+Pulls fresh data from one connected tool, or from all of them when `provider` is omitted. Returns counts of contacts created and updated, deals and campaigns.
+
+| Parameter | Description |
+| --- | --- |
+| `provider` | Optional. `hubspot`, `salesforce`, `shopify`, `odoo`, `instantly`, `smartlead` or `heyreach` |

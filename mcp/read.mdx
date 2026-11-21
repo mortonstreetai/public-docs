@@ -1,0 +1,47 @@
+---
+title: "Read tools"
+description: "Questions answered from the shared data model. Scope: crm.read or campaigns.read."
+---
+
+## search_contacts
+
+Finds contacts by free text (name, email or title) and filters.
+
+| Parameter | Description |
+| --- | --- |
+| `query` | Optional text matched against email, first name, last name and title |
+| `status` | Optional [contact status](/concepts/data-model#value-sets) |
+| `company_id` | Optional company |
+| `tag` | Optional tag, for example a list name |
+| `limit` | Optional, default 25, max 200 |
+| `offset` | Optional, for paging |
+
+Results are ordered by most recent activity and include the company.
+
+## get_contact
+
+Takes `contact`: a contact ID or email. Returns one contact with company, deals, campaign enrollments and the 25 most recent activities.
+
+## search_companies
+
+Finds companies by name, domain or industry, with contact and deal counts.
+
+## account_timeline
+
+Everything that happened with one account across every tool: the company, its contacts, its deals and up to 100 activities, newest first. Takes `company`: a company ID or a domain such as `acme.com`.
+
+## get_pipeline
+
+Deals grouped by stage with the count and total value per stage, plus open count, open value and closed-won value. Pass `include_closed: true` to include the won and lost columns (default `false`).
+
+## list_campaigns
+
+Campaigns from every connected sequencer. Optional filters: `provider`, `status`.
+
+## campaign_performance
+
+Totals and per-campaign results: leads, sent, opened, replied, positive, bounced, plus open, reply, positive and bounce rates as percentages of sent. Optional `provider` filter.
+
+## replied_without_deal
+
+Contacts who replied by email or LinkedIn within `days` (default 30) and have no open deal. Each result includes which tool the reply came from, when, and whether the contact already exists in a CRM. This is the usual starting point for [sync_to_crm](/mcp/workflows#sync_to_crm).

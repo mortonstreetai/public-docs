@@ -1,0 +1,30 @@
+---
+title: "Quickstart"
+description: "From a new workspace to your first cross-tool question in Claude."
+---
+
+<Steps>
+  <Step title="Sign in and create your workspace">
+    Go to [app.mortonstreet.ai](https://app.mortonstreet.ai) and sign in. Create an organization for your company; that organization is your workspace. Invite teammates from **Settings → Members**.
+
+    Under **Settings → Workspace**, add your company domain so your logo shows up across the portal.
+  </Step>
+  <Step title="Connect your tools">
+    Open **Integrations**. HubSpot, Salesforce and Shopify connect with a sign-in button. Instantly, Smartlead and HeyReach take an API key. Odoo takes your instance URL, database, login and an API key.
+
+    Morton Street checks every credential with the vendor before saving it, then runs a first sync. See [Integrations](/integrations/overview) for what each one needs.
+  </Step>
+  <Step title="Check the shared data">
+    The **Overview**, **Contacts**, **Pipeline** and **Campaigns** pages now show records from every connected tool. No tools yet? Use **Load sample data** on the Overview page to explore with a demo dataset tagged `sample`.
+  </Step>
+  <Step title="Connect your AI client">
+    Add `https://api.mortonstreet.ai/mcp` to [Claude](/connect/claude), [ChatGPT](/connect/chatgpt), [Claude Code](/connect/claude-code) or [Cursor](/connect/cursor). You sign in with the same Morton Street account; no API keys are pasted into the AI client.
+  </Step>
+  <Step title="Ask a cross-tool question">
+    Try:
+
+    > Who replied to a campaign in the last 30 days but has no open deal? Create them in HubSpot with a deal at "meeting".
+
+    The assistant calls `replied_without_deal`, then `sync_to_crm`. Because that is a bulk CRM write, you get a preview first and confirm it with `confirm_action`, or approve it in the portal under **Approvals**.
+  </Step>
+</Steps>

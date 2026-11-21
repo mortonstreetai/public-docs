@@ -1,0 +1,60 @@
+---
+title: "Guardrails"
+description: "Permission scopes, preview-then-confirm, audit log and rate limits."
+---
+
+Morton Street can change live CRMs and campaigns, so every write passes through the same checks whether it comes from the portal, an AI client or the background worker.
+
+## Permission scopes
+
+Admins set these per workspace under **Settings → Permissions**.
+
+| Scope | Default | Confirmation by default | Covers |
+| --- | --- | --- | --- |
+| `crm.read` | On | No | Contacts, companies, deals and timelines |
+| `crm.write` | On | No | Create and update contacts, deals and notes |
+| `campaigns.read` | On | No | Campaign lists and performance |
+| `campaigns.send` | On | **Yes** | Adding leads to live Instantly, Smartlead or HeyReach campaigns |
+| `crm.bulk_sync` | On | **Yes** | Pushing many records into HubSpot, Salesforce, Odoo or Shopify at once |
+| `data.delete` | **Off** | **Yes** | Deleting contacts or deals |
+
+A tool whose scope is off returns an error explaining which permission to enable, and the attempt is logged as `denied`.
+
+## Preview, then confirm
+
+When an AI client calls a write tool that needs confirmation, nothing is changed yet. The tool returns:
+
+- `status: "pending_confirmation"`
+- an `action_id`
+- a plain-English `summary`, for example "Add 42 leads to Instantly campaign "Q4 Ops leaders""
+- a `preview` with a sample of the affected records and how many were skipped
+- `expires_at`, 30 minutes later
+
+The action runs only when someone calls `confirm_action` with that ID, or approves it in the portal under **Approvals**. `cancel_action` or **Reject** discards it. Confirmation is claimed atomically, so a double-click cannot run it twice.
+
+Confirmation is required when:
+
+- the scope's **require confirmation** setting is on, or
+- the call comes from an AI client and affects more than **25** records, whatever the scope settings.
+
+Actions you start yourself from a button in the portal run right away, because clicking the button is the confirmation.
+
+## Audit log
+
+Every tool call, connection change, sync and confirmation is written to the audit log with: who did it (user, AI client, system or worker), which OAuth client was used, the tool, the vendor, the result (`ok`, `error`, `pending`, `denied`), a summary and the duration. Inputs are stored with any field named like a key, token, secret or password redacted. View it under **Audit log**.
+
+## Rate limits
+
+Calls to each vendor go through a per-workspace token bucket, kept under each vendor's published limits:
+
+| Vendor | Requests per second per workspace |
+| --- | --- |
+| HubSpot | 9 |
+| Salesforce | 10 |
+| Shopify | 2 |
+| Odoo | 10 |
+| Instantly | 5 |
+| Smartlead | 5 |
+| HeyReach | 4 |
+
+If a vendor still returns `429`, Morton Street waits for the `Retry-After` time and retries up to three times.

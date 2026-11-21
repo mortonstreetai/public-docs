@@ -1,0 +1,29 @@
+---
+title: "Data model"
+description: "The shared records Morton Street keeps in sync across your tools."
+---
+
+Every connected tool is synced into the same set of records. Each record keeps the ID it has in each vendor under `external_ids`, for example `{"hubspot": "1234", "instantly": "…"}`, so the same person is one contact even when they exist in three tools.
+
+| Record | Key fields | Notes |
+| --- | --- | --- |
+| **Company** | name, domain, industry, employee_count, annual_revenue, location | Unique per workspace by domain |
+| **Contact** | first_name, last_name, email, title, phone, linkedin_url, status, tags, company | Unique per workspace by email |
+| **Deal** | name, stage, amount, currency, close_date, owner, company, contact | Mirrors CRM opportunities; Shopify orders arrive as won deals |
+| **Campaign** | name, provider, channel, status, stats | Stats: leads, sent, opened, replied, positive, bounced |
+| **Enrollment** | campaign, contact, status | Which contacts are in which sequence |
+| **Activity** | type, provider, subject, body, occurred_at | The cross-tool timeline |
+
+## Value sets
+
+**Contact status:** `new`, `in_sequence`, `replied`, `interested`, `bounced`, `unsubscribed`, `customer`
+
+**Deal stage:** `lead`, `qualified`, `meeting`, `proposal`, `negotiation`, `won`, `lost`. Each CRM's own stages are mapped to these. For example, HubSpot's default `closedwon` becomes `won`, and Salesforce's `Proposal/Price Quote` becomes `proposal`.
+
+**Campaign channel:** `email`, `linkedin`, `multichannel`. **Campaign status:** `draft`, `active`, `paused`, `completed`.
+
+**Activity type:** `email_sent`, `email_open`, `email_reply`, `linkedin_message`, `linkedin_reply`, `call`, `meeting`, `note`, `deal_stage`, `order`, `quote`
+
+## Syncing
+
+Each connection is pulled on a schedule (about hourly) and on demand with **Sync now** in the portal or the `sync_now` tool. A sync reads up to 500 recent contacts and deals per run, plus all campaigns and their analytics. Sync runs are idempotent and recorded with their counts, so you can see what changed.

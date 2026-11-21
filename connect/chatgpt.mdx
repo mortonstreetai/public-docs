@@ -1,0 +1,24 @@
+---
+title: "ChatGPT"
+description: "Use Morton Street from ChatGPT through an MCP-based app or connector."
+---
+
+ChatGPT plugins were replaced by apps and connectors built on MCP. The same server Claude uses works for ChatGPT.
+
+<Steps>
+  <Step title="Enable developer mode if required">
+    Depending on your plan, custom MCP connectors may need developer mode, which a workspace admin turns on under **Settings → Apps & Connectors → Advanced**.
+  </Step>
+  <Step title="Create the connector">
+    Under **Settings → Apps & Connectors**, create a new connector:
+
+    - **Name:** Morton Street
+    - **MCP server URL:** `https://api.mortonstreet.ai/mcp`
+    - **Authentication:** OAuth
+  </Step>
+  <Step title="Sign in and use it">
+    Sign in with your Morton Street account when prompted, then enable the connector in a chat.
+  </Step>
+</Steps>
+
+<Info>ChatGPT's menu names change often. If a label above does not match, look for "connectors" or "apps" in settings; the URL and OAuth choice are what matter.</Info>
