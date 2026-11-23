@@ -1,0 +1,88 @@
+---
+title: "Odoo tools"
+description: "Read any Odoo record, enrich fields, and build and confirm quotes from your assistant."
+---
+
+These tools work on the workspace's own Odoo connection (see [Odoo](/integrations/odoo)). They reach every record the Odoo integration user can see, not only what has been synced. Each workspace has its own Odoo connection, so one client's assistant can never reach another client's Odoo.
+
+| Model | What it is | Read | Write |
+| --- | --- | --- | --- |
+| `res.partner` | Contacts and companies | yes | yes |
+| `crm.lead` | Leads and opportunities | yes | yes |
+| `sale.order` | Quotations and sales orders | yes | yes |
+| `sale.order.line` | Quote and order lines | yes | no |
+| `product.product` | Products (with internal reference / SKU and list price) | yes | no |
+| `account.move` | Invoices and payment state | yes | no |
+| `crm.stage` | Pipeline stages | yes | no |
+
+Nothing in Odoo can be deleted through Morton Street.
+
+## odoo_search
+
+Reads records straight from Odoo. Scope: `crm.read`.
+
+| Parameter | Description |
+| --- | --- |
+| `model` | One of the models above |
+| `query` | Optional text matched against the record's name |
+| `ids` | Optional exact Odoo record ids |
+| `fields` | Optional fields to return; omitted, a useful default set for the model |
+| `limit` | Optional, default 20, max 200 |
+
+Typical uses: find a product's id and list price before `create_quote`, look up a customer's open quotes, or check an invoice's payment state.
+
+## odoo_fields
+
+Lists the fields on a model, with each field's label, type, whether it is required or read-only, and the allowed values for selection fields. Binary and one-to-many fields are left out. Scope: `crm.read`.
+
+| Parameter | Description |
+| --- | --- |
+| `model` | One of the models above |
+
+Call it before enriching a record, so the assistant writes to fields that exist on your Odoo (custom fields included).
+
+## update_odoo_record
+
+Edits fields on one Odoo contact, lead or opportunity, or quote. The preview shows each field's current and new value. Scope: `crm.write`.
+
+| Parameter | Description |
+| --- | --- |
+| `model` | `res.partner`, `crm.lead` or `sale.order` |
+| `id` | Odoo record id, from `odoo_search` |
+| `values` | Field names and new values, for example `{"phone": "+1 555 0100", "function": "Plant Manager"}`. Relational fields take the related record's id. |
+
+## create_quote
+
+Creates an Odoo quotation (`sale.order`) with product lines. Scope: `crm.write`.
+
+| Parameter | Description |
+| --- | --- |
+| `contact_id` | Morton Street contact who is already an Odoo customer |
+| `partner_id` | Or the Odoo partner id directly |
+| `deal_id` | Optional deal to attach |
+| `lines` | One or more of `product_id` (from `odoo_search` on `product.product`), `quantity`, optional `price_unit` and `description` |
+| `note` | Optional terms printed on the quote |
+| `validity_date` | Optional expiry date, `YYYY-MM-DD` |
+
+Prices default to each product's list price, so Odoo's pricing stays the source of truth. The preview lists every line and an estimated total before tax. After it runs:
+
+- the quote is linked to the deal's Odoo opportunity, when the deal came from Odoo
+- a `quote` activity with a link to the quote is added to the contact's timeline
+- a deal at `lead`, `qualified` or `meeting` moves to `proposal`
+
+## confirm_quote
+
+Confirms a draft or sent quotation, turning it into a sales order in Odoo. Because this books an order, it **always** returns a preview and runs only after the user approves it, whatever the workspace's settings. Scope: `crm.write`.
+
+| Parameter | Description |
+| --- | --- |
+| `quote_id` | Odoo `sale.order` id |
+
+## Example
+
+> Acme wants four of the 2" rotary meters. Make them a quote and add their new buyer's phone number.
+
+1. `search_contacts` finds the buyer; `odoo_search` on `product.product` with `query: "rotary"` returns the product id and list price.
+2. `create_quote` with the contact and `quantity: 4` returns a preview: one line, the unit price and the total.
+3. `update_odoo_record` on `res.partner` previews the phone change, from empty to the new number.
+4. You approve both. The quote appears in Odoo, the deal moves to Proposal, and the quote shows on Acme's timeline in Morton Street.

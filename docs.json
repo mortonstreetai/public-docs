@@ -8,8 +8,13 @@
     "light": "#F5F5F5",
     "dark": "#0A0A0A"
   },
-  "appearance": { "default": "dark", "strict": false },
-  "fonts": { "family": "Inter" },
+  "appearance": {
+    "default": "dark",
+    "strict": false
+  },
+  "fonts": {
+    "family": "Inter"
+  },
   "favicon": "/favicon.png",
   "logo": {
     "light": "/logo/light.svg",
@@ -18,23 +23,49 @@
   },
   "navbar": {
     "links": [
-      { "label": "Status", "href": "https://status.mortonstreet.ai" }
+      {
+        "label": "Status",
+        "href": "https://status.mortonstreet.ai"
+      }
     ],
-    "primary": { "type": "button", "label": "Open portal", "href": "https://app.mortonstreet.ai" }
+    "primary": {
+      "type": "button",
+      "label": "Open portal",
+      "href": "https://app.mortonstreet.ai"
+    }
   },
   "navigation": {
     "groups": [
       {
         "group": "Get started",
-        "pages": ["introduction", "quickstart"]
+        "pages": [
+          "introduction",
+          "quickstart"
+        ]
       },
       {
         "group": "Connect your AI",
-        "pages": ["connect/claude", "connect/chatgpt", "connect/claude-code", "connect/cursor"]
+        "pages": [
+          "connect/claude",
+          "connect/chatgpt",
+          "connect/claude-code",
+          "connect/cursor"
+        ]
       },
       {
         "group": "Concepts",
-        "pages": ["concepts/authentication", "concepts/workspaces", "concepts/data-model", "concepts/guardrails"]
+        "pages": [
+          "concepts/authentication",
+          "concepts/workspaces",
+          "concepts/data-model",
+          "concepts/guardrails"
+        ]
+      },
+      {
+        "group": "Playbooks",
+        "pages": [
+          "playbooks/rfq-to-autoquote"
+        ]
       },
       {
         "group": "Integrations",
@@ -51,26 +82,56 @@
       },
       {
         "group": "MCP tool reference",
-        "pages": ["mcp/overview", "mcp/workspace", "mcp/read", "mcp/write", "mcp/workflows", "mcp/approvals"]
+        "pages": [
+          "mcp/overview",
+          "mcp/workspace",
+          "mcp/read",
+          "mcp/write",
+          "mcp/odoo",
+          "mcp/workflows",
+          "mcp/approvals"
+        ]
       },
       {
         "group": "Trust",
-        "pages": ["security"]
-      }
-    ]
-  },
-  "footer": {
-    "socials": { "website": "https://mortonstreet.ai" },
-    "links": [
-      {
-        "header": "Morton Street",
-        "items": [
-          { "label": "Portal", "href": "https://app.mortonstreet.ai" },
-          { "label": "Status", "href": "https://status.mortonstreet.ai" },
-          { "label": "Website", "href": "https://mortonstreet.ai" }
+        "pages": [
+          "security"
         ]
       }
     ]
   },
-  "contextual": { "options": ["copy", "view", "claude", "chatgpt", "cursor", "mcp"] }
+  "footer": {
+    "socials": {
+      "website": "https://mortonstreet.ai"
+    },
+    "links": [
+      {
+        "header": "Morton Street",
+        "items": [
+          {
+            "label": "Portal",
+            "href": "https://app.mortonstreet.ai"
+          },
+          {
+            "label": "Status",
+            "href": "https://status.mortonstreet.ai"
+          },
+          {
+            "label": "Website",
+            "href": "https://mortonstreet.ai"
+          }
+        ]
+      }
+    ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "claude",
+      "chatgpt",
+      "cursor",
+      "mcp"
+    ]
+  }
 }
