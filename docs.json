@@ -46,10 +46,10 @@
       {
         "group": "Connect your AI",
         "pages": [
-          "connect/custom-connector",
           "connect/claude",
           "connect/chatgpt",
-          "connect/grok-bot"
+          "connect/grok-bot",
+          "connect/custom-connector"
         ]
       },
       {
