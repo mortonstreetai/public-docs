@@ -1,0 +1,49 @@
+---
+title: "Grok Bot"
+description: "Add Morton Street to Grok Bot as a custom MCP connector."
+---
+
+<img src="/images/ai/grok-light.svg" alt="Grok Bot" width="48" height="48" className="dark:hidden" noZoom />
+<img src="/images/ai/grok-dark.svg" alt="Grok Bot" width="48" height="48" className="hidden dark:block" noZoom />
+
+Grok Bot is xAI's agent. Each Bot works on its own cloud computer, and you chat with it, review its work and approve its actions from the Grok Bot desktop and mobile apps. Grok Bot uses MCP servers as connected apps. Morton Street is a remote MCP server with OAuth sign-in, so a Bot can use every Morton Street tool once you connect it.
+
+<Steps>
+  <Step title="Open Connect apps">
+    In the Grok Bot app, open **Connect apps** from the sidebar. On your phone, tap your avatar in the top left and choose **Connect apps**.
+  </Step>
+  <Step title="Add a custom connector">
+    Choose **Add a custom connector** at the bottom of the list and fill in:
+
+    - **Name:** Morton Street
+    - **Type:** Remote HTTPS
+    - **Server URL:** `https://api.mortonstreet.ai/mcp`
+
+    Leave **HTTP headers** and **Client ID** empty, because Morton Street registers Grok Bot automatically. Choose **Add plugin**.
+  </Step>
+  <Step title="Sign in">
+    "Added" means installed, not signed in yet. Open Morton Street in **Connect apps** and choose **Authenticate**. Sign in with your Morton Street portal account in the browser and approve access. If the sign-in doesn't finish, choose **Reconnect** on the app, or **Reopen** on the card in the chat.
+  </Step>
+  <Step title="Give a Bot a task">
+    Type `@` in a chat to attach Morton Street to a task, then ask something like "Find everyone who replied this week without an open deal and draft a quote for the top one."
+  </Step>
+</Steps>
+
+You can also ask a Bot in plain words to add the connector:
+
+> Add this MCP server as a connector: https://api.mortonstreet.ai/mcp. Then list the tools it gives you.
+
+## How sign-in and approvals work
+
+- **Your login stays with you.** The Morton Street sign-in token is kept by Grok Bot's connector service. The Bot calls tools without ever seeing the token, and it never sees your HubSpot, Odoo, Shopify or sequencer credentials.
+- **One workspace at a time.** The Bot acts in your active Morton Street workspace. Ask it to call `whoami` to check, and `switch_workspace` to change it.
+- **Previews before changes.** Morton Street writes that send, bulk-change or book orders come back as a preview. They run only after you approve, in the chat or under **Approvals** in the Morton Street portal. In Grok Bot you can also set an **Ask first** rule for Morton Street actions that send or change records.
+- **Connected apps are account-wide.** Once connected, Morton Street is available to every Bot you run.
+
+## Teams and Enterprise
+
+- Grok Bot follows your team's connector policy, set by an admin on the **Plugins & MCPs** page. If Morton Street shows **Disabled by team admin**, ask your admin to allow `https://api.mortonstreet.ai/mcp`.
+- On Enterprise with a network allowlist and **Apply to MCP servers** turned on, add `api.mortonstreet.ai` to **Allowed destinations**.
+- Each member signs in with their own Morton Street account, so every Bot reaches only the workspaces that person belongs to. Logins are shared on a Team Bot only if an admin turns on **Allow Shared Logins**.
+
+<Info>Grok Bot's menu names change often. If a label above doesn't match, look for "Connect apps" or "connectors"; the server URL is what matters. All connection details, plus troubleshooting, are on [Custom connector](/connect/custom-connector).</Info>

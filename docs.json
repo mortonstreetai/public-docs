@@ -2,7 +2,7 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
   "name": "Morton Street OS",
-  "description": "One sales operating system across your CRM, sequencers and store, with an MCP server for Claude, ChatGPT and Grok.",
+  "description": "One sales operating system across your CRM, sequencers and store, with an MCP server for Claude, ChatGPT and Grok Bot.",
   "colors": {
     "primary": "#111111",
     "light": "#F5F5F5",
@@ -49,7 +49,7 @@
           "connect/custom-connector",
           "connect/claude",
           "connect/chatgpt",
-          "connect/grok"
+          "connect/grok-bot"
         ]
       },
       {
@@ -132,5 +132,19 @@
       "chatgpt",
       "mcp"
     ]
-  }
+  },
+  "redirects": [
+    {
+      "source": "/connect/grok",
+      "destination": "/connect/grok-bot"
+    },
+    {
+      "source": "/connect/claude-code",
+      "destination": "/connect/custom-connector"
+    },
+    {
+      "source": "/connect/cursor",
+      "destination": "/connect/custom-connector"
+    }
+  ]
 }
