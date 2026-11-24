@@ -1,0 +1,64 @@
+---
+title: "Custom connector"
+description: "Everything an AI assistant needs to add Morton Street as a custom MCP connector."
+---
+
+Claude, ChatGPT and Grok all call this a **custom connector**: you give the assistant the address of an MCP server, sign in once, and its tools appear in your chats. Morton Street is one remote MCP server for your whole sales stack, so this is the only connector you add.
+
+<CardGroup cols={3}>
+  <Card title="Claude" href="/connect/claude">
+    <img src="/images/ai/claude.svg" alt="Claude" width="40" height="40" noZoom />
+    Settings → Connectors → Add custom connector
+  </Card>
+  <Card title="ChatGPT" href="/connect/chatgpt">
+    <img src="/images/ai/openai-light.svg" alt="ChatGPT" width="40" height="40" className="dark:hidden" noZoom />
+    <img src="/images/ai/openai-dark.svg" alt="ChatGPT" width="40" height="40" className="hidden dark:block" noZoom />
+    Settings → Apps & Connectors → Create
+  </Card>
+  <Card title="Grok" href="/connect/grok">
+    <img src="/images/ai/grok-light.svg" alt="Grok" width="40" height="40" className="dark:hidden" noZoom />
+    <img src="/images/ai/grok-dark.svg" alt="Grok" width="40" height="40" className="hidden dark:block" noZoom />
+    Settings → Connectors → New connector → Custom
+  </Card>
+</CardGroup>
+
+## Connection details
+
+| Field | Value |
+| --- | --- |
+| Name | Morton Street |
+| Server URL | `https://api.mortonstreet.ai/mcp` |
+| Transport | Streamable HTTP |
+| Authentication | OAuth (sign in with your Morton Street account) |
+| Client ID and secret | Leave empty. The assistant registers itself. |
+| Protected resource metadata | `https://api.mortonstreet.ai/.well-known/oauth-protected-resource/mcp` |
+
+You never paste an API key into the assistant. Your HubSpot, Odoo, Shopify and sequencer credentials stay in Morton Street and are never sent to the assistant. See [Authentication](/concepts/authentication).
+
+## What happens when you connect
+
+1. The assistant calls the server URL and is told it needs to sign in.
+2. A Morton Street sign-in window opens. You sign in with your portal account and approve access.
+3. The assistant receives a token that only works for the Morton Street MCP server, and only for the workspaces you belong to.
+4. The tools appear in your chat. Ask "Which Morton Street workspace am I in?" to check (`whoami`).
+
+## After you connect
+
+- **One workspace at a time.** Every tool acts in your active workspace. If you belong to several, ask the assistant to `switch_workspace`. See [Workspace tools](/mcp/workspace).
+- **Previews before changes.** Writes that send, bulk-change or book orders return a preview. Nothing changes until you approve it in the chat or under **Approvals** in the portal.
+- **What the assistant can do** is listed in the [MCP overview](/mcp/overview).
+
+## Team and company plans
+
+On Claude Team and Enterprise, ChatGPT Business and Enterprise, and Grok Business and Enterprise, an owner or admin may need to add or allow the connector for the organization first. Each member still signs in with their own Morton Street account.
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| "Couldn't connect" or no sign-in window | Check the URL is exactly `https://api.mortonstreet.ai/mcp`, with `/mcp` at the end. Allow pop-ups for the assistant's site. |
+| Signed in, but no tools appear | Turn the connector on in the chat's tools menu. Some assistants only load tools in a new chat. |
+| "Your account is not a member of any Morton Street workspace yet" | Accept your invitation to the portal at [app.mortonstreet.ai](https://app.mortonstreet.ai) first. Morton Street is invite-only. |
+| The wrong client's data | Ask the assistant to call `whoami`, then `switch_workspace`. |
+| A write didn't happen | It is probably waiting for approval. Ask the assistant to `list_pending_actions`, or open **Approvals** in the portal. |
+| Sign-in keeps expiring | Disconnect the connector and connect it again. Removing a member from a workspace also ends their access. |

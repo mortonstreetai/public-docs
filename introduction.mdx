@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-description: "One sales operating system across your CRM, sequencers and store, run by Morton Street and usable from Claude, ChatGPT and Cursor."
+description: "One sales operating system across your CRM, sequencers and store, run by Morton Street and usable from Claude, ChatGPT and Grok."
 ---
 
 Morton Street OS is the platform behind Morton Street's managed outbound service. Each client connects the tools they already use, and Morton Street keeps them in one shared data model. Your team and your AI assistant can then work across all of them at once.
@@ -9,8 +9,8 @@ Morton Street OS is the platform behind Morton Street's managed outbound service
   <Card title="Quickstart" icon="rocket" href="/quickstart">
     Create a workspace, connect your tools and plug in your AI client in about ten minutes.
   </Card>
-  <Card title="Connect Claude" icon="plug" href="/connect/claude">
-    Add Morton Street as a custom connector in Claude.
+  <Card title="Connect your AI" icon="plug" href="/connect/custom-connector">
+    One custom connector for Claude, ChatGPT or Grok.
   </Card>
   <Card title="Integrations" icon="layer-group" href="/integrations/overview">
     HubSpot, Salesforce, Shopify, Odoo, Instantly, Smartlead and HeyReach.
@@ -20,11 +20,30 @@ Morton Street OS is the platform behind Morton Street's managed outbound service
   </Card>
 </CardGroup>
 
+## Works with your AI assistant
+
+<CardGroup cols={3}>
+  <Card title="Claude" href="/connect/claude">
+    <img src="/images/ai/claude.svg" alt="Claude" width="40" height="40" noZoom />
+    Add Morton Street as a custom connector.
+  </Card>
+  <Card title="ChatGPT" href="/connect/chatgpt">
+    <img src="/images/ai/openai-light.svg" alt="ChatGPT" width="40" height="40" className="dark:hidden" noZoom />
+    <img src="/images/ai/openai-dark.svg" alt="ChatGPT" width="40" height="40" className="hidden dark:block" noZoom />
+    Add Morton Street as an app or connector.
+  </Card>
+  <Card title="Grok" href="/connect/grok">
+    <img src="/images/ai/grok-light.svg" alt="Grok" width="40" height="40" className="dark:hidden" noZoom />
+    <img src="/images/ai/grok-dark.svg" alt="Grok" width="40" height="40" className="hidden dark:block" noZoom />
+    Add Morton Street as a custom connector.
+  </Card>
+</CardGroup>
+
 ## What it does
 
 - **One data model.** Contacts, companies, deals, campaigns and activity from every connected tool are synced into a single workspace. Questions like "who replied in Instantly but has no deal in HubSpot" are answered from that shared data instead of seven live API calls.
 - **Cross-tool workflows.** One request can take a list, save it, create the contacts in your CRM and enroll them in a sequence. See [Workflows](/mcp/workflows).
-- **An MCP server for your AI.** `https://api.mortonstreet.ai/mcp` works with Claude custom connectors, ChatGPT apps and connectors, Claude Code and Cursor. You build nothing; you sign in.
+- **An MCP server for your AI.** `https://api.mortonstreet.ai/mcp` works as a custom connector in Claude, ChatGPT and Grok. You build nothing; you sign in.
 - **Guardrails by default.** Permission scopes per workspace, preview-then-confirm for anything that sends or deletes, a full audit log and per-vendor rate limits. See [Guardrails](/concepts/guardrails).
 - **Portfolio view.** A sponsor workspace (a PE firm or an agency) can see pipeline and campaign results across the portfolio companies it owns. See [Workspaces](/concepts/workspaces).
 

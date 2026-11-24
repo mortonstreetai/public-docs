@@ -1,0 +1,39 @@
+---
+title: "Grok"
+description: "Add Morton Street to Grok as a custom MCP connector."
+---
+
+<img src="/images/ai/grok-light.svg" alt="Grok" width="48" height="48" className="dark:hidden" noZoom />
+<img src="/images/ai/grok-dark.svg" alt="Grok" width="48" height="48" className="hidden dark:block" noZoom />
+
+Grok connects to remote MCP servers as custom connectors. Morton Street is a remote MCP server with OAuth sign-in, so Grok can use every Morton Street tool once it is connected.
+
+<Steps>
+  <Step title="Open connectors">
+    On [grok.com](https://grok.com), open **Settings → Connectors** (or go straight to `grok.com/connectors`).
+  </Step>
+  <Step title="Add a custom connector">
+    Choose **New connector → Custom** (on some accounts, **Add a custom connector** at the bottom of the list) and enter:
+
+    - **Name:** Morton Street
+    - **URL:** `https://api.mortonstreet.ai/mcp`
+
+    Confirm with **Add**.
+  </Step>
+  <Step title="Sign in">
+    A Morton Street sign-in window opens. Sign in with your portal account and approve access. Grok registers itself automatically; there is no client ID or API key to copy.
+  </Step>
+  <Step title="Use it in a chat">
+    Turn the Morton Street connector on in a conversation and ask something like "Which deals moved to proposal this week?"
+  </Step>
+</Steps>
+
+## Grok Business and Enterprise
+
+On team plans, an admin may need to allow the connector for the organization before members can add it. In the xAI console, open **Connectors → Add connector**, choose **Other**, and enter the same URL. Members then sign in with their own Morton Street account, so each person only reaches the workspaces they belong to.
+
+<Note>
+Writes that send, bulk-change or book orders return a preview first. Grok shows it to you, and the change runs only after you approve it (in the chat or under **Approvals** in the portal). See [Approvals](/mcp/approvals).
+</Note>
+
+<Info>Grok's menu names change often. If a label above does not match, look for "connectors" in settings; the URL is what matters. The full set of connection details is on [Custom connector](/connect/custom-connector).</Info>
